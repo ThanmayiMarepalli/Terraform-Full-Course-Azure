@@ -1,0 +1,43 @@
+Here’s an example Terraform configuration showing how to integrate Azure Blob Storage and Cosmos DB for state locking:
+
+Backend Configuration
+
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "my-resource-group"
+    storage_account_name = "mystorageaccount"
+    container_name       = "terraform-state"
+    key                  = "terraform.tfstate"
+
+    # Configure state locking
+    key_vault_name = "mycosmosdbaccount"    # This database will provide lock metadata
+  }
+}
+
+
+
+
+Cosmos DB Configuration
+
+resource "azurerm_cosmosdb_account" "example" {
+  name                = "mycosmosdbaccount"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
+  offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
+
+  consistency_policy {
+    consistency_level = "Session"
+  }
+
+  geo_location {
+    location          = azurerm_resource_group.example.location
+    failover_priority = 0
+  }
+}
+
+resource "azurerm_cosmosdb_sql_database" "example" {
+  name                = "terraform-lock-table"
+  resource_group_name = azurerm_resource_group.example.name
+  account_name        = azurerm_cosmosdb_account.example.name
+}
