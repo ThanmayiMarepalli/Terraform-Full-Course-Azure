@@ -9,7 +9,7 @@
 
 ## State file best practices
 
-Azure blob storage (remote backend) + dynamodb (lock the file)
+Azure blob storage (remote backend) + dynamodb (state locking)
 
 <img width="587" alt="image" src="https://github.com/user-attachments/assets/7e0b774f-bf83-4576-b8e8-618ee248f8f7" />
 
