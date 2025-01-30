@@ -20,7 +20,7 @@ This course consists of video lessons covering basic to advanced Terraform conce
 ## 📚 Course Curriculum
 
 ### Module 1: Core Concepts
-
+hhh
 #### Day1: Introduction to Terraform
 - Understanding Infrastructure as Code (IaC)
 - Why we need IaC
